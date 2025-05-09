@@ -1,10 +1,10 @@
 # Edge SQA Assignment - Parabank User Registration and Login Test
 
-This project contains an automated test for the Parabank website that handles user registration and login functionality using CSV data and generates an HTML report using ExtentReports.
+This project contains an automated test for the Parabank website that handles user registration and login functionality using CSV data. The test logs each step and result into an HTML report using ExtentReports.
 
 ## Prerequisites
 
-- JetBrains Rider IDE
+- JetBrains Rider IDE (or any C# IDE)
 - .NET SDK (Core or .NET 6+ recommended)
 - Google Chrome installed
 - ChromeDriver compatible with your Chrome version
@@ -31,55 +31,54 @@ This project contains an automated test for the Parabank website that handles us
 3. **Add the Code**
 
    - Replace the contents of `Program.cs` with the provided test code
-   - Ensure your `UserData` class is also in the same file or namespace
+   - Ensure the `UserData` class is included in the same file or project
 
 4. **CSV File Setup**
 
-   - Create a folder `D:\sqa\` on your computer
-   - Save your user data CSV file as `User_Registration_Data.csv` in that folder
-   - Example headers:
+   - Save your user data CSV file as `User_Data.csv` directly under `D:\`
+   - Example CSV headers (must match exactly):
      ```
      First Name,Last Name,Address,City,State,Zip Code,Phone Number,SSN,Username,Password,Confirm Password
      ```
 
-5. **Update File Paths**
+5. **Verify Hardcoded Paths**
 
-   In `Program.cs`:
-   - Update the report file path:
-     ```csharp
-     string reportFilePath = $@"D:\sqa\{dateTime}.html";
-     ```
-   - Update the CSV file path:
-     ```csharp
-     using (var reader = new StreamReader(@"D:\sqa\User_Registration_Data.csv"))
-     ```
-
-   ✅ Make sure the folder `D:\sqa\` exists and contains your `.csv` file.
+   - In `Program.cs`, the following paths are hardcoded:
+     - Report:
+       ```csharp
+       string reportFilePath = $@"D:\{dateTime}.html";
+       ```
+     - CSV File:
+       ```csharp
+       using (var reader = new StreamReader(@"D:\User_Data.csv"))
+       ```
+   ✅ Make sure the file `D:\User_Data.csv` exists and is formatted properly.
 
 ## Running the Tests
 
-1. Press **Ctrl+Shift+F10** or click the **Run** icon next to `Main` to execute the test
+1. Press **Ctrl+Shift+F10** or click the **Run** icon next to `Main` in Rider
 2. The test will:
-   - Open Chrome browser
+   - Launch Chrome browser
    - Navigate to [Parabank](https://parabank.parasoft.com/parabank/index.htm)
-   - Register users using data from the CSV file
-   - Log out and then log in using registered credentials
-   - Validate successful login
-   - Log each step and result in an HTML report
+   - Register users from the CSV data
+   - Log out and log in using registered credentials
+   - Validate login success
+   - Write a detailed report to an HTML file in `D:\`
 
 ## Test Report
 
-After running the test, an HTML report will be generated at the location specified in reportFilePath. This report contains detailed information about each test step and its outcome.
+After execution, an HTML report will be generated under `D:\` with the timestamp in its filename (e.g., `D:\20250509_153000.html`).  
+It includes detailed steps, actions, and pass/fail status using ExtentReports.
 
 ## Troubleshooting
 
-- ❗ Ensure ChromeDriver version matches your installed Chrome browser
-- ❗ File paths must exist — create folders manually if needed
-- ❗ CSV must have correct headers and formatting
-- ✔️ Try running as Administrator if file access is restricted
+- ❗ Ensure your ChromeDriver version matches your installed Chrome browser
+- ❗ CSV file path and headers must match exactly
+- ❗ Folder `D:\` must exist; create it manually if needed
+- ❗ Run the IDE as Administrator if encountering access issues
 
 ## Notes
 
 This project was developed by **Tahmidul Islam**  
 Department of CSE, Jagannath University  
-Automated with Selenium, CsvHelper, and ExtentReports using C# in Rider IDE.
+Automated using **Selenium**, **CsvHelper**, and **ExtentReports** in C# with Rider IDE.
